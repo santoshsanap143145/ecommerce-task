@@ -44,6 +44,7 @@
       position: relative;
       width: 20px;
       height: 20px;
+      overflow: hidden;
       .star {
         font-size: 20px;
         position: absolute;
@@ -60,7 +61,7 @@
 }
 
 .prodLink {
-  color: #038ade;
+  color: #297bff;
   cursor: pointer;
   &:is(:hover, :active, :focus) {
     color: #ff0000;
@@ -95,6 +96,7 @@
     height: 40px;
     border-radius: 50%;
     border: 2px solid #808080;
+    cursor: pointer;
   }
   .count {
     display: inline-block;
@@ -107,8 +109,8 @@
   }
 }
 
-.borDer{
-    border-bottom: transparent;
-    border-top: 3px solid #dc3545;
-    margin-bottom: 100px;
+.borDer {
+  border-bottom: transparent;
+  border-top: 3px solid #dc3545;
+  margin-bottom: 100px;
 }

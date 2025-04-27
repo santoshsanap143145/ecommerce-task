@@ -48,17 +48,15 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     }
   }
 
-  reduceOnClick() {
-    if(this.count >= 0){
+  updateCount(act: string) {
+    if(act === 'minus' && this.count > 1){
+      this.count--
+    }else if(act === 'plus'){
       this.count++
     }
   }
 
-  increaseOnClick() {
-    if(this.count > 0){
-      this.count--
-    }
-  }
+  
 
   ngOnDestroy(): void {
     this.prodSub.unsubscribe();

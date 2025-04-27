@@ -47,7 +47,7 @@
           <span class="mx-3">|</span>
           Sold : {{ product.reviews_count * 1.5 | number : "1.0-0" }}
           <span class="mx-3">|</span>
-          <span routerlink="/products" class="prodLink">View shop</span>
+          <span [routerLink]="['/products']" class="prodLink">View shop</span>
         </p>
       </div>
     </div>
@@ -105,18 +105,18 @@
             <mat-icon class="text-secondary mr-3">local_shipping</mat-icon>
             Free Shipping
           </span>
-          <div class="form-group mt-3">
-            <label for="shippingAddress">Shipping Address</label>
-            <select type="text" class="form-control" id="shippingAddress">
-              <option value="home">Home Adress</option>
+          <div class="form-group mt-3 d-flex justify-content-center align-items-center">
+            <label class="text-secondary font-weight-bold" for="shippingAddress"><strong>Shipping Address:</strong></label>
+            <select class="border-0 text-primary" style="cursor: pointer !important;" id="shippingAddress">
+              <option value="home">Home Address</option>
               <option value="office">Office Adress</option>
             </select>
           </div>
           <div class="orderCount d-flex align-items-between">
             <strong class="m-0">Quantity:</strong>
-            <button (click)="reduceOnClick()" class="minus ml-3">-</button>
+            <button (click)="updateCount('minus')" class="minus ml-3">-</button>
             <strong class="count">{{ count }}</strong>
-            <button (click)="increaseOnClick()" class="plus">+</button>
+            <button (click)="updateCount('plus')" class="plus">+</button>
           </div>
           <button class="btn btn-sm btn-block btn-danger mt-4">Add to cart</button>
           <button class="btn btn-sm btn-block btn-dark">Buy Now</button>
@@ -127,7 +127,7 @@
             </p>
           </div>
           <ng-template #noContent>
-            <p class="alert alert-info">No return policy on this product</p>
+            <p class="alert alert-info mt-3">No return policy on this product</p>
           </ng-template>
     </div>
   </div>
@@ -147,20 +147,20 @@
     <div class="col-md-12">
         <mat-tab-group mat-align-tabs="left">
             <mat-tab label="Product Details">
-                <p *ngIf="product.product_details;else nodetails" class="text-secondary p-4">{{product.product_details}}</p>
+                <p *ngIf="product && product.product_details; else nodetails" class="text-secondary p-4">{{product.product_details}}</p>
                 <ng-template #nodetails>
-                    <p class="alert alert-info">No product details availabe</p>
+                    <p class="mt-4">No product details availabe</p>
                 </ng-template>
             </mat-tab>
             <mat-tab label="Specification">
-                <ul class="list-group"*ngIf="product.product_specifications;else nospecs">
-                    <li class="list-group-items" *ngFor="let spec of product.product_specifications">
+                <ul class="list-group" *ngIf="product && product.product_specifications;else nospecs">
+                    <li class="list-group-item" *ngFor="let spec of product.product_specifications">
                         <strong>{{spec.specification_name}}:</strong>
                         {{spec.specification_value}}
                     </li>
                 </ul>
                 <ng-template #nospecs>
-                    <p class="alert alert-info">No product specification availabe</p>
+                    <p class="mt-4">No product specification availabe</p>
                 </ng-template>
             </mat-tab>
           </mat-tab-group>
