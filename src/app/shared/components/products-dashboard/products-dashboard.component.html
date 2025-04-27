@@ -1,0 +1,110 @@
+<div class="container my-5">
+  <div class="row" *ngIf="products.length > 0; else noProducts">
+    <div class="col-md-3 mb-5" *ngFor="let product of products">
+      <div
+        class="card h-100 border-0 prodCard"
+        (mouseenter)="hoverProdId = product._id"
+        (mouseleave)="hoverProdId = null"
+      >
+        <div class="prodImgs border border-muted">
+          <img
+            [src]="product.images[0]"
+            class="card-img-top mainImg"
+            alt="..."
+          />
+          <img
+            [routerLink]="product._id"
+            [src]="product.images[1]"
+            class="hoverImg"
+            [ngClass]="{
+              active: hoverProdId === product._id
+            }"
+            alt=""
+          />
+          <div class="hoverIcons">
+            <button
+              type="button"
+              class="btn btn-sm btn-light"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Add to Cart"
+            >
+              <mat-icon
+                [routerLink]="product._id"
+                aria-hidden="false"
+                aria-label="Example home icon"
+                fontIcon="local_mall"
+              ></mat-icon>
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-light"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Add to WishList"
+            >
+              <mat-icon
+                (click)="onClick()"
+                [ngClass]="{ 'text-danger': markedfevorite }"
+                aria-hidden="false"
+                aria-label="Example home icon"
+                fontIcon="favorite"
+              ></mat-icon>
+            </button>
+            <button
+              router
+              type="button"
+              class="btn btn-sm btn-light"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Quick View"
+            >
+              <mat-icon
+                [routerLink]="product._id"
+                aria-hidden="false"
+                aria-label="Example home icon"
+                fontIcon="visibility"
+              ></mat-icon>
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-light"
+              data-toggle="tooltip"
+              data-placement="left"
+              title="Compare"
+            >
+              <mat-icon
+                [routerLink]="product._id"
+                aria-hidden="false"
+                aria-label="Example home icon"
+                fontIcon="shuffle"
+              ></mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="card-body" 
+        [routerLink]="product._id">
+          <h4 class="card-subtitle m-0 text-muted">{{ product.category }}</h4>
+          <h3 class="card-title mb-0">
+            <strong>{{ product.title }}</strong>
+          </h3>
+          <h3 class="card-title mb-0 text-danger">
+            <strong>{{ product.total_price }}</strong>
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noProducts>
+    <p *ngIf="!loadingSpinner" class="alert alert-info">
+      No Products Available
+    </p>
+    <div
+      style="height: 80vh"
+      class="d-flex justify-content-center align-items-center"
+      *ngIf="loadingSpinner"
+    >
+      <mat-spinner style="color: #0c183b"></mat-spinner>
+    </div>
+  </ng-template>
+</div>

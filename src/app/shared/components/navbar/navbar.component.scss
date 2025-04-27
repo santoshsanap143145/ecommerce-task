@@ -1,0 +1,39 @@
+.brand {
+  width: 70px;
+  display: inline-block;
+  .logo {
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+.dark {
+  background-color: #0c183b;
+  color: #fff !important;
+}
+.light {
+  color: #fff;
+  background-color: #e0a800;
+  border-radius: 8px;
+  font-size: 25px;
+}
+
+.navItem {
+  margin: 0 6px;
+  a {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 18px;
+    border-bottom: 5px solid transparent;
+    transition: all 0.5s ease-in-out;
+    &:is(:hover, :active, :focus) {
+      color: #e0a800;
+      border-color: #e0a800;
+    }
+  }
+  &.active a {
+    color: #e0a800;
+    border-color: #e0a800;
+  }
+}

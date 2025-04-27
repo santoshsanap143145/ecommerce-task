@@ -1,0 +1,114 @@
+.mainImg {
+  height: 500px;
+  padding-top: 20px;
+  text-align: center;
+  img {
+    width: 80%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.altImgs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 20px 0 20px 10px;
+  .imgGroup {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    img {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+      display: block;
+    }
+    &:hover {
+      transform: scale(1.1);
+    }
+    &.active {
+      border-color: #ff0000;
+    }
+  }
+}
+
+.ratview {
+  .rating {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    .starGroup {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      .star {
+        font-size: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: #ccc;
+      }
+      .star.filled {
+        color: #ffa500;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.prodLink {
+  color: #038ade;
+  cursor: pointer;
+  &:is(:hover, :active, :focus) {
+    color: #ff0000;
+    text-decoration: underline;
+  }
+}
+
+.headingInfo {
+  border-bottom: 1px solid #cacaca;
+}
+
+.tags {
+  margin-bottom: 30px;
+  span {
+    display: inline-block;
+    color: #fff;
+    background-color: #9a9696;
+    padding: 5px;
+    margin: 12px 0 0 6px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.orderCount {
+  display: flex;
+  align-items: center;
+  .minus,
+  .plus {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #808080;
+  }
+  .count {
+    display: inline-block;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: #dc3545;
+  }
+}
+
+.borDer{
+    border-bottom: transparent;
+    border-top: 3px solid #dc3545;
+    margin-bottom: 100px;
+}

@@ -1,0 +1,168 @@
+<div
+  class="row my-5 mx-2 py-5"
+  *ngIf="product; else noProduct"
+  style="border-top: 3px solid #ff0000"
+>
+  <div class="col-md-5">
+    <div class="mainImg">
+      <img [src]="selectedImg" [alt]="product.title" [title]="product.title" />
+    </div>
+    <div class="altImgs">
+      <div
+        class="imgGroup"
+        [ngClass]="{ active: selectedImg === img }"
+        *ngFor="let img of product.images"
+        (click)="selectedImg = img"
+      >
+        <img [src]="img" [alt]="product.title" [title]="product.title" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5 mt-5">
+    <div class="headingInfo">
+      <h4 class="card-subtitle mb-2 text-muted">
+        Categories:
+        <span class="text-primary">
+          {{ product.category }} / {{ product.subcategory }}
+        </span>
+      </h4>
+      <h2 class="card-title">
+        <strong>{{ product.title }}</strong>
+      </h2>
+      <div class="ratview d-flex align-items-center mb-4">
+        <div class="rating">
+          <ng-container *ngFor="let star of stars; let i = index">
+            <div class="starGroup">
+              <mat-icon class="star unfilled">star</mat-icon>
+              <mat-icon
+                [ngStyle]="{ width: getStarFill(i) }"
+                class="star filled"
+                >star</mat-icon
+              >
+            </div>
+          </ng-container>
+        </div>
+        <p class="text-muted m-0">
+          Review({{ product.reviews_count }})
+          <span class="mx-3">|</span>
+          Sold : {{ product.reviews_count * 1.5 | number : "1.0-0" }}
+          <span class="mx-3">|</span>
+          <span routerlink="/products" class="prodLink">View shop</span>
+        </p>
+      </div>
+    </div>
+    <h1 class="text-danger my-3">
+      <strong>{{ product.total_price }}</strong>
+    </h1>
+    <div
+      class="productSpecs border-bottom pb-4"
+      *ngIf="product.product_specifications;else nospecs"
+    >
+      <div class="row">
+        <div class="col-sm-6 p-0">
+          <ul class="list-group">
+            <li
+              *ngFor="let spec of product.product_specifications"
+              class="list-group-item border-0 p-2"
+            >
+              <strong class="text-bold">{{ spec.specification_name }}</strong>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-6 p-0">
+          <ul class="list-group">
+            <li
+              *ngFor="let spec of product.product_specifications"
+              class="list-group-item border-0 p-2"
+            >
+              <span class="text-muted">{{ spec.specification_value }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <ng-template #nospecs>
+        <p class="alert alert-info">No Specification available for this product</p>
+    </ng-template>
+    <div class="prodDescription">
+      <h3 class="my-3"><strong>About this Item</strong></h3>
+      <ul>
+        <li class="text-muted" *ngFor="let des of product.product_description">
+          {{ des }}
+        </li>
+      </ul>
+    </div>
+    <div class="tags" *ngIf="product">
+      <span *ngFor="let tag of product.tags">{{ tag }}</span>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="purchaseDetails border border-muted p-3">
+        <h3 class="text-danger">
+            <strong>{{ product.total_price }}</strong>
+          </h3>
+          <span class="d-flex align-items-center my-2">
+            <mat-icon class="text-secondary mr-3">local_shipping</mat-icon>
+            Free Shipping
+          </span>
+          <div class="form-group mt-3">
+            <label for="shippingAddress">Shipping Address</label>
+            <select type="text" class="form-control" id="shippingAddress">
+              <option value="home">Home Adress</option>
+              <option value="office">Office Adress</option>
+            </select>
+          </div>
+          <div class="orderCount d-flex align-items-between">
+            <strong class="m-0">Quantity:</strong>
+            <button (click)="reduceOnClick()" class="minus ml-3">-</button>
+            <strong class="count">{{ count }}</strong>
+            <button (click)="increaseOnClick()" class="plus">+</button>
+          </div>
+          <button class="btn btn-sm btn-block btn-danger mt-4">Add to cart</button>
+          <button class="btn btn-sm btn-block btn-dark">Buy Now</button>
+          <div class="deatils mt-3">
+            <strong>Return Policy:</strong>
+            <p class="mt-3" *ngIf="product.return_policy; else noContent">
+              {{ product.return_policy }}
+            </p>
+          </div>
+          <ng-template #noContent>
+            <p class="alert alert-info">No return policy on this product</p>
+          </ng-template>
+    </div>
+  </div>
+</div>
+<ng-template #noProduct>
+  <p *ngIf="!loadingSpinner" class="alert alert-info">No Products Available</p>
+  <div
+    style="height: 80vh"
+    class="d-flex justify-content-center align-items-center"
+    *ngIf="loadingSpinner"
+  >
+    <mat-spinner style="color: #0c183b"></mat-spinner>
+  </div>
+</ng-template>
+
+<div class="row borDer">
+    <div class="col-md-12">
+        <mat-tab-group mat-align-tabs="left">
+            <mat-tab label="Product Details">
+                <p *ngIf="product.product_details;else nodetails" class="text-secondary p-4">{{product.product_details}}</p>
+                <ng-template #nodetails>
+                    <p class="alert alert-info">No product details availabe</p>
+                </ng-template>
+            </mat-tab>
+            <mat-tab label="Specification">
+                <ul class="list-group"*ngIf="product.product_specifications;else nospecs">
+                    <li class="list-group-items" *ngFor="let spec of product.product_specifications">
+                        <strong>{{spec.specification_name}}:</strong>
+                        {{spec.specification_value}}
+                    </li>
+                </ul>
+                <ng-template #nospecs>
+                    <p class="alert alert-info">No product specification availabe</p>
+                </ng-template>
+            </mat-tab>
+          </mat-tab-group>
+    </div>
+</div>
